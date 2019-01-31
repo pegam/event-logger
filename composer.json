@@ -1,0 +1,33 @@
+{
+    "name": "pegam/htec-logger",
+    "license": "",
+    "authors": [
+        {
+            "name": "Predrag Markovic",
+            "email": "markovic.d.predrag@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.10",
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "swiftmailer/swiftmailer": "^6.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Htec\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Htec\\Tests\\": "tests/"
+        }
+    }
+}
