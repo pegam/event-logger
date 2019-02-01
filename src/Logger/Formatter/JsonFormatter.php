@@ -22,7 +22,7 @@ class JsonFormatter extends AbstractFormatter
     {
         $json = json_encode($log->toArray());
         if (false === $json) {
-            throw new FatalException(json_last_error_msg());
+            throw new FatalException(json_last_error_msg());// @codeCoverageIgnore
         }
         return $json;
     }

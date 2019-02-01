@@ -1,14 +1,5 @@
 <?php
 
-/**
- * wetter.com api
- *
- * @copyright 2018 wetter.com GmbH
- *
- * @licence   For the full copyright and license information, please view the LICENSE
- *            file that was distributed with this source code.
- */
-
 namespace Htec\Tests\Unit\Logger\Formatter;
 
 use Htec\Logger\Entity\EventEntity;

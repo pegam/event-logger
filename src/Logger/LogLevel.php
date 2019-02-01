@@ -57,4 +57,18 @@ class LogLevel
     {
         return self::MAP[$level] ?? '';
     }
+
+    /**
+     * @param string $level
+     *
+     * @return int|null
+     */
+    public static function getInt(string $level): ?int
+    {
+        $levelInt = array_search($level, self::MAP, true);
+        if (!is_int($levelInt)) {
+            $levelInt = null;
+        }
+        return $levelInt;
+    }
 }

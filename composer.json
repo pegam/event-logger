@@ -11,6 +11,7 @@
         "php": "^7.2.10",
         "ext-json": "*",
         "ext-pdo": "*",
+        "pda/pheanstalk": "^3.0",
         "swiftmailer/swiftmailer": "^6.0"
     },
     "require-dev": {
@@ -51,6 +52,6 @@
             "@php-md"
         ],
         "php-cbf": "phpcbf --standard=phpcs.ruleset.xml src/",
-        "unit-tests": "phpunit -c phpunit.xml --colors=auto --coverage-text tests/"
+        "unit-tests": "phpunit -c phpunit.xml --coverage-text tests/"
     }
 }
