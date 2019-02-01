@@ -23,7 +23,7 @@ class HtmlFormatterTest extends TestCase
         $body = "<td>chnnl</td>\n<td>DEBUG</td>\n<td>2009-02-13 23:31:30.123000</td>\n<td>type</td>\n<td>name</td>\n"
             . "<td>performer</td>\n<td>subject</td>\n<td>{\"meta\":\"abc\"}</td>\n";
         $expected = "
-<table>
+<table style=\"border-collapse:collapse;\" cellpadding=\"10\" border=\"1\">
     <thead>
         <tr>{$header}</tr>
     </thead>

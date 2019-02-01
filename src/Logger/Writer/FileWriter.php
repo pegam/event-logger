@@ -83,7 +83,7 @@ class FileWriter extends AbstractWriter
         $dirname = $pathInfo['dirname'];
         $basename = $pathInfo['basename'];
         if ($this->prependDate) {
-            $basename = date('Y_m_d_') . $basename;
+            $basename = date('Y_m_d-') . $basename;
         }
         if (!is_dir($dirname) && !mkdir($dirname, 0777, true) && !is_dir($dirname)) {
             throw new FatalException('Can not create directory "' . $dirname . '"');

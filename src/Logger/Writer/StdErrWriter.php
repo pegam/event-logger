@@ -15,6 +15,6 @@ class StdErrWriter extends AbstractWriter
      */
     public function write(LogEntity $log): void
     {
-        file_put_contents(STDERR, $this->formatter->format($log) . "\n");
+        fwrite(STDERR, $this->formatter->format($log) . "\n");
     }
 }

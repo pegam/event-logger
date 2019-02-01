@@ -7,7 +7,7 @@ use Htec\Logger\Entity\EventEntity;
 /**
  * Class AbstractLogger
  */
-abstract class AbstractLogger implements LoggerInterface
+abstract class AbstractLogger implements LoggerInterface, ChannelAwareInterface
 {
     /**
      * @param EventEntity $log

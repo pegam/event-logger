@@ -12,7 +12,7 @@ use Htec\Logger\Handler\HandlerInterface;
 /**
  * Class Logger
  */
-class Logger extends AbstractLogger implements ChannelAwareInterface
+class Logger extends AbstractLogger
 {
     /**
      * @var HandlerCollectionInterface
@@ -86,7 +86,7 @@ class Logger extends AbstractLogger implements ChannelAwareInterface
     {
         $handler = $this->handlers->get($channel);
         if (null === $handler) {
-            throw new FatalException('No such channel (' . $channel . ')');
+            throw new FatalException('No such channel ("' . $channel . '")');
         }
         return $handler;
     }

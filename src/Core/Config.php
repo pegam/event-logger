@@ -30,6 +30,6 @@ class Config
      */
     private static function getDefaultConfigPath(): string
     {
-        return dirname(__DIR__, 2) . '/logger.conf.php';
+        return dirname(__DIR__, 2) . '/config/logger.conf.php';
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Htec\Logger\Builder;
 
-use Htec\Logger\Exception\FatalException;
+use Htec\Logger\AbstractLogger;
 use Htec\Logger\Collection\HandlerCollection;
+use Htec\Logger\Exception\FatalException;
 use Htec\Logger\Logger;
-use Htec\Logger\LoggerInterface;
 
 /**
  * Class LoggerBuilder
@@ -30,11 +30,11 @@ class LoggerBuilder implements LoggerBuilderInterface
     /**
      * @param array $config
      *
-     * @return LoggerInterface
+     * @return AbstractLogger
      *
      * @throws FatalException
      */
-    public function build(array $config): LoggerInterface
+    public function build(array $config): AbstractLogger
     {
         $collection = new HandlerCollection();
         foreach ($config as $channel => $handlerConfig) {

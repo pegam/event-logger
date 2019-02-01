@@ -22,10 +22,10 @@ class MySqlFormatter extends AbstractFormatter implements SqlFormatterInterface
         if (empty($this->config['table'])) {
             throw new FatalException('Missing or bad table name');
         }
-        return 'INSERT INTO `' . $this->config['table'] . "` ('channelName', 'logLevel', 'logTime', 'eventType',
-                                                              'eventName', 'performerOfAction', 'actionSubject', 'meta')
+        return 'INSERT INTO `' . $this->config['table'] . '` (channelName, logLevel, logTime, eventType, eventName,
+                                                              performerOfAction, actionSubject, meta)
                 VALUES (:channelName, :logLevel, :logTime, :eventType, :eventName, :performerOfAction, :actionSubject,
-                        :meta)";
+                        :meta)';
     }
 
     /**

@@ -27,7 +27,7 @@ class HtmlFormatter extends AbstractFormatter
             $body .= "<td>{$value}</td>\n";
         }
         return "
-<table>
+<table style=\"border-collapse:collapse;\" cellpadding=\"10\" border=\"1\">
     <thead>
         <tr>{$header}</tr>
     </thead>

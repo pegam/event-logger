@@ -57,8 +57,14 @@ class MailWriter extends AbstractWriter
     public function __construct(array $config, FormatterInterface $formatter)
     {
         parent::__construct($config, $formatter);
-        if (empty($config['location']) || !is_string($config['location'])) {
-            throw new FatalException('Missing or bad output file location');
+        if (empty($config['to']) || !is_string($config['to'])) {
+            throw new FatalException('Missing or bad "to"');
+        }
+        if (empty($config['host']) || !is_string($config['host'])) {
+            throw new FatalException('Missing or bad "host"');
+        }
+        if (empty($config['username']) || !is_string($config['username'])) {
+            throw new FatalException('Missing or bad "username"');
         }
         $this->from = $config['from'];
         $this->to = $config['to'];

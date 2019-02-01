@@ -1,0 +1,14 @@
+CREATE DATABASE htec DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE Logs (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    channelName VARCHAR(100) NOT NULL,
+    logLevel VARCHAR(20) NOT NULL,
+    logTime DATETIME(6) NOT NULL,
+    eventType VARCHAR(100) NOT NULL,
+    eventName VARCHAR(100) NOT NULL,
+    performerOfAction VARCHAR(100),
+    actionSubject VARCHAR(100),
+    meta TEXT,
+    KEY (channelName, logTime)
+) ENGINE = InnoDB;

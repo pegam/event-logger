@@ -21,10 +21,10 @@ class MySqlFormatterTest extends TestCase
     public function testFormat(): void
     {
         $table = 'ABC';
-        $expected = 'INSERT INTO `' . $table . "` ('channelName', 'logLevel', 'logTime', 'eventType',
-                                                              'eventName', 'performerOfAction', 'actionSubject', 'meta')
+        $expected = 'INSERT INTO `' . $table .'` (channelName, logLevel, logTime, eventType, eventName,
+                                                              performerOfAction, actionSubject, meta)
                 VALUES (:channelName, :logLevel, :logTime, :eventType, :eventName, :performerOfAction, :actionSubject,
-                        :meta)";
+                        :meta)';
         $event = new EventEntity('type', 'name', 'performer', 'subject', ['meta' => 'abc']);
         $log = new LogEntity('chnnl', LogLevel::DEBUG, $event, 1234567890.123);
         $formatter  = new MySqlFormatter(['table' => $table]);
