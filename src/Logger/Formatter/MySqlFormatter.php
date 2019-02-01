@@ -36,7 +36,10 @@ class MySqlFormatter extends AbstractFormatter implements SqlFormatterInterface
     public function getParams(LogEntity $log): array
     {
         $params = [];
-        foreach($log as $name => $value) {
+        foreach ($log->toArray() as $name => $value) {
+            if ('meta' === $name) {
+                $value = json_encode($value);
+            }
             $params[":{$name}"] = $value;
         }
         return $params;

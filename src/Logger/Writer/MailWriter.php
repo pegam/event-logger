@@ -47,15 +47,16 @@ class MailWriter extends AbstractWriter
     private $password;
 
     /**
-     * FileWriter constructor.
+     * MailWriter constructor.
      *
+     * @param array              $config
      * @param FormatterInterface $formatter
      *
      * @throws FatalException
      */
-    public function __construct(FormatterInterface $formatter)
+    public function __construct(array $config, FormatterInterface $formatter)
     {
-        parent::__construct($formatter);
+        parent::__construct($config, $formatter);
         if (empty($config['location']) || !is_string($config['location'])) {
             throw new FatalException('Missing or bad output file location');
         }

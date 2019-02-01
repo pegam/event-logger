@@ -11,9 +11,9 @@ class DotEnv
      * @param string      $varName
      * @param string|null $default
      *
-     * @return string
+     * @return string|null
      */
-    public static function get(string $varName, ?string $default = null): string
+    public static function get(string $varName, ?string $default = null): ?string
     {
         $value = getenv($varName);
         if (false === $value) {
@@ -24,13 +24,23 @@ class DotEnv
 
     /**
      * @param string $filePath
-     * @param bool   $overload
      */
-    public function load(string $filePath, bool $overload = false): void
+    public function load(string $filePath): void
     {
         $lines = $this->readFile($filePath);
         foreach ($lines as $line) {
-            $this->populate($line, $overload);
+            $this->populate($line, false);
+        }
+    }
+
+    /**
+     * @param string $filePath
+     */
+    public function overload(string $filePath): void
+    {
+        $lines = $this->readFile($filePath);
+        foreach ($lines as $line) {
+            $this->populate($line, true);
         }
     }
 
@@ -54,6 +64,8 @@ class DotEnv
     /**
      * @param string $line
      * @param bool   $overload
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     private function populate(string $line, bool $overload): void
     {

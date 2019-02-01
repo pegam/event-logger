@@ -9,16 +9,18 @@ use Htec\Logger\Handler\HandlerInterface;
  */
 class HandlerCollection implements HandlerCollectionInterface
 {
-    private $handlers;
+    /**
+     * @var HandlerInterface[]
+     */
+    private $handlers = [];
 
     /**
-     * HandlerCollection constructor.
-     *
-     * @param HandlerInterface[] $handlers
+     * @param string           $channel
+     * @param HandlerInterface $handler
      */
-    public function __construct(array $handlers)
+    public function push(string $channel, HandlerInterface $handler): void
     {
-        $this->handlers = $handlers;
+        $this->handlers[$channel] = $handler;
     }
 
     /**
@@ -70,7 +72,11 @@ class HandlerCollection implements HandlerCollectionInterface
      */
     public function key(): ?string
     {
-        return key($this->handlers);
+        $key = key($this->handlers);
+        if (null !== $key) {
+            $key .= '';
+        }
+        return $key;
     }
 
     /**

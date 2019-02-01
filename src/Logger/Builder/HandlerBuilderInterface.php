@@ -17,5 +17,5 @@ interface HandlerBuilderInterface
      *
      * @throws FatalException
      */
-    public function create(array $config): HandlerInterface;
+    public function build(array $config): HandlerInterface;
 }

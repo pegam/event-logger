@@ -21,11 +21,14 @@ class HandlerBuilder implements HandlerBuilderInterface
      *
      * @throws FatalException
      */
-    public function create(array $config): HandlerInterface
+    public function build(array $config): HandlerInterface
     {
         $formatter = $this->createFormatter($config);
         $writer = $this->createWriter($config, $formatter);
-        $minLevelToHandle = isset($config['level']) && LogLevel::isValid($config['level']) ? $config['level'] : LogLevel::DEBUG;
+        $minLevelToHandle = LogLevel::DEBUG;
+        if (isset($config['level']) && LogLevel::isValid($config['level'])) {
+            $minLevelToHandle = $config['level'];
+        }
         $bubble = isset($config['bubble']) ? (bool)$config['bubble'] : true;
         return new Handler($minLevelToHandle, $bubble, $writer);
     }

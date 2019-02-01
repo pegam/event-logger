@@ -20,6 +20,9 @@ class HtmlFormatter extends AbstractFormatter
         $header = '';
         $body = '';
         foreach ($log->toArray() as $name => $value) {
+            if ('meta' === $name) {
+                $value = json_encode($value);
+            }
             $header .= "<th>{$name}</th>\n";
             $body .= "<td>{$value}</td>\n";
         }

@@ -10,6 +10,12 @@ use Htec\Logger\Handler\HandlerInterface;
 interface HandlerCollectionInterface extends \Iterator
 {
     /**
+     * @param string           $channel
+     * @param HandlerInterface $handler
+     */
+    public function push(string $channel, HandlerInterface $handler): void;
+
+    /**
      * @param string $channel
      *
      * @return bool

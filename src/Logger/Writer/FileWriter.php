@@ -37,7 +37,7 @@ class FileWriter extends AbstractWriter
      */
     public function __construct(array $config, FormatterInterface $formatter)
     {
-        parent::__construct($formatter);
+        parent::__construct($config, $formatter);
         if (empty($config['location']) || !is_string($config['location'])) {
             throw new FatalException('Missing or bad output file location');
         }
@@ -80,8 +80,8 @@ class FileWriter extends AbstractWriter
     private function getFilePath(): string
     {
         $pathInfo = pathinfo($this->filePath);
-        $dirname = $pathInfo[PATHINFO_DIRNAME];
-        $basename = $pathInfo[PATHINFO_BASENAME];
+        $dirname = $pathInfo['dirname'];
+        $basename = $pathInfo['basename'];
         if ($this->prependDate) {
             $basename = date('Y_m_d_') . $basename;
         }

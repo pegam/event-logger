@@ -36,13 +36,11 @@ class LoggerBuilder implements LoggerBuilderInterface
      */
     public function build(array $config): LoggerInterface
     {
-        $handlers = [];
+        $collection = new HandlerCollection();
         foreach ($config as $channel => $handlerConfig) {
-            $handler = $this->handlerBuilder->create($handlerConfig);
-            $handlers[$channel] = $handler;
+            $handler = $this->handlerBuilder->build($handlerConfig);
+            $collection->push($channel, $handler);
         }
-        $collection = new HandlerCollection($handlers);
         return new Logger($collection);
     }
-
 }

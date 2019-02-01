@@ -5,14 +5,18 @@ namespace Htec\Logger\Formatter;
 use Htec\Logger\Entity\LogEntity;
 
 /**
- * Interface FileFormatterInterface
+ * Class NullFormatter
  */
-interface FileFormatterInterface
+class NullFormatter extends AbstractFormatter
 {
+
     /**
      * @param LogEntity $log
      *
      * @return string
      */
-    public function getHeaderLine(LogEntity $log): string;
+    public function format(LogEntity $log): string
+    {
+        return '';
+    }
 }

@@ -20,7 +20,9 @@ class CsvFormatter extends AbstractFormatter implements FileFormatterInterface
      */
     public function format(LogEntity $log): string
     {
-        return $this->createCsvLine($log->toArray());
+        $arr = $log->toArray();
+        $arr['meta'] = json_encode($arr['meta']);
+        return $this->createCsvLine($arr);
     }
 
     /**
@@ -45,11 +47,10 @@ class CsvFormatter extends AbstractFormatter implements FileFormatterInterface
     private function createCsvLine(array $data): string
     {
         $fp = fopen('php://memory', 'rb+');
-        $status = fputcsv($fp, $data);
-        if (false === $status) {
-            throw new FatalException('Can not create CSV line');
+        if (false === $fp || false === fputcsv($fp, $data)) {
+            throw new FatalException('Can not create CSV line');// @codeCoverageIgnore
         }
         rewind($fp);
-        return (string)stream_get_contents($fp);
+        return rtrim((string)stream_get_contents($fp), "\r\n");
     }
 }

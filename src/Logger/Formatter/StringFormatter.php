@@ -7,7 +7,7 @@ use Htec\Logger\Entity\LogEntity;
 /**
  * Class StringFormatter
  */
-class StringFormatter extends  AbstractFormatter
+class StringFormatter extends AbstractFormatter
 {
 
     /**
@@ -20,7 +20,10 @@ class StringFormatter extends  AbstractFormatter
         $logArr = $log->toArray();
         return sprintf(
             '[%s] %s.%s: %s',
-            $logArr['logTime'], $logArr['channelName'], $logArr['logLevel'], (string)$log->getEvent()
+            $logArr['logTime'],
+            $logArr['channelName'],
+            $logArr['logLevel'],
+            (string)$log->getEvent()
         );
     }
 }

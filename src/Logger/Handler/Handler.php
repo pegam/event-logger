@@ -32,7 +32,7 @@ class Handler implements HandlerInterface
      * @param bool            $bubble
      * @param WriterInterface $writer
      */
-    public function __construct(int $minLevelToHandle, bool $bubble, WriterInterface $writer = null)
+    public function __construct(int $minLevelToHandle, bool $bubble, WriterInterface $writer)
     {
         $this->minLevelToHandle = $minLevelToHandle;
         $this->bubble = $bubble;
@@ -44,8 +44,7 @@ class Handler implements HandlerInterface
      */
     public function handle(LogEntity $log): void
     {
-        $handled = $this->shouldHandle($log->getLevel());
-        if ($handled) {
+        if ($this->shouldHandle($log->getLevel())) {
             $this->writer->write($log);
         }
     }
@@ -55,15 +54,15 @@ class Handler implements HandlerInterface
      */
     public function shouldBubble(): bool
     {
-        return $this->bubble;
+        return null === $this->bubble || $this->bubble;
     }
 
     /**
-     * @param string $level
+     * @param int $level
      *
      * @return bool
      */
-    private function shouldHandle(string $level): bool
+    public function shouldHandle(int $level): bool
     {
         return $level >= $this->minLevelToHandle;
     }

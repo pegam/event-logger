@@ -18,4 +18,11 @@ interface HandlerInterface
      * @return bool
      */
     public function shouldBubble(): bool;
+
+    /**
+     * @param int $level
+     *
+     * @return bool
+     */
+    public function shouldHandle(int $level): bool;
 }

@@ -43,13 +43,14 @@ class MySqlWriter extends AbstractWriter
     /**
      * MySqlWriter constructor.
      *
+     * @param array              $config
      * @param FormatterInterface $formatter
      *
      * @throws FatalException
      */
-    public function __construct(FormatterInterface $formatter)
+    public function __construct(array $config, FormatterInterface $formatter)
     {
-        parent::__construct($formatter);
+        parent::__construct($config, $formatter);
         if (empty($config['dsn']) || !is_string($config['dsn'])) {
             throw new FatalException('Missing or bad DSN');
         }
@@ -68,7 +69,7 @@ class MySqlWriter extends AbstractWriter
      */
     public function write(LogEntity $log): void
     {
-        $connection = new \PDO($this->dsn,  $this-$this->username, $this->password, $this->pdoOptions);
+        $connection = new \PDO($this->dsn, $this->username, $this->password, $this->pdoOptions);
         $statement = $connection->prepare($this->formatter->format($log));
         $statement->execute($this->formatter->getParams($log));
     }

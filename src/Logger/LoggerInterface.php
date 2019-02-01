@@ -52,8 +52,8 @@ interface LoggerInterface
     public function debug(EventEntity $log): void;
 
     /**
-     * @param string      $level
+     * @param int         $level
      * @param EventEntity $log
      */
-    public function log(string $level, EventEntity $log): void;
+    public function log(int $level, EventEntity $log): void;
 }

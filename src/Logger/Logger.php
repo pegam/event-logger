@@ -20,7 +20,7 @@ class Logger extends AbstractLogger implements ChannelAwareInterface
     protected $handlers;
 
     /**
-     * AbstractLogger constructor.
+     * Logger constructor.
      *
      * @param HandlerCollectionInterface $handlers
      */
@@ -30,13 +30,15 @@ class Logger extends AbstractLogger implements ChannelAwareInterface
     }
 
     /**
-     * @param string      $level
+     * @param int         $level
      * @param EventEntity $event
-     *
-     * @throws \Exception
      */
-    public function log(string $level, EventEntity $event): void
+    public function log(int $level, EventEntity $event): void
     {
+        /**
+         * @var string $channel
+         * @var HandlerInterface $handler
+         */
         foreach ($this->handlers as $channel => $handler) {
             $handler->handle(new LogEntity($channel, $level, $event));
             if (!$handler->shouldBubble()) {
@@ -66,11 +68,10 @@ class Logger extends AbstractLogger implements ChannelAwareInterface
      */
     public function stack(array $channels): LoggerInterface
     {
-        $handlers = [];
+        $collection = new HandlerCollection();
         foreach ($channels as $channel) {
-            $handlers[$channel] = $this->getHandler($channel);
+            $collection->push($channel, $this->getHandler($channel));
         }
-        $collection = new HandlerCollection($handlers);
         return new self($collection);
     }
 
@@ -83,9 +84,10 @@ class Logger extends AbstractLogger implements ChannelAwareInterface
      */
     private function getHandler(string $channel): HandlerInterface
     {
-        if (!$this->handlers->has($channel)) {
+        $handler = $this->handlers->get($channel);
+        if (null === $handler) {
             throw new FatalException('No such channel (' . $channel . ')');
         }
-        return $this->handlers->get($channel);
+        return $handler;
     }
 }

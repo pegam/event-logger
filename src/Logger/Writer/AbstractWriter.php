@@ -10,6 +10,10 @@ use Htec\Logger\Formatter\FormatterInterface;
 abstract class AbstractWriter implements WriterInterface
 {
     /**
+     * @var array
+     */
+    protected $config;
+    /**
      * @var FormatterInterface
      */
     protected $formatter;
@@ -17,10 +21,12 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * AbstractWriter constructor.
      *
+     * @param array              $config
      * @param FormatterInterface $formatter
      */
-    public function __construct(FormatterInterface $formatter)
+    public function __construct(array $config, FormatterInterface $formatter)
     {
+        $this->config = $config;
         $this->formatter = $formatter;
     }
 }

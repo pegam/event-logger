@@ -2,7 +2,7 @@
 
 namespace Htec\Logger\Entity;
 
-use Htec\Logger\Exception\FatalException;
+use Htec\Logger\LogLevel;
 
 /**
  * Class LogEntity
@@ -15,7 +15,7 @@ class LogEntity
     private $channelName;
 
     /**
-     * @var string
+     * @var int
      */
     private $logLevel;
 
@@ -25,7 +25,7 @@ class LogEntity
     private $event;
 
     /**
-     * @var int
+     * @var string
      */
     private $logTime;
 
@@ -33,27 +33,28 @@ class LogEntity
      * LogEntity constructor.
      *
      * @param string      $channel
-     * @param string      $level
+     * @param int         $level
      * @param EventEntity $event
-     * @param int         $time
-     *
-     * @throws \Exception
+     * @param float|null  $microtime
      */
-    public function __construct(string $channel, string $level, EventEntity $event, int $time = null)
+    public function __construct(string $channel, int $level, EventEntity $event, float $microtime = null)
     {
         $this->channelName = $channel;
         $this->logLevel = $level;
         $this->event = $event;
-        if (null === $time) {
-            $time = time();
+        if (null === $microtime) {
+            $microtime = microtime(true);
         }
-        $this->logTime = (new \DateTime("@$time"))->format('Y-m-d H:i:s');
+        $time = \DateTime::createFromFormat('U.u', (string)$microtime);
+        if (false !== $time) {
+            $this->logTime = $time->format('Y-m-d H:i:s.u');
+        }
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getLevel(): string
+    public function getLevel(): int
     {
         return $this->logLevel;
     }
@@ -72,22 +73,20 @@ class LogEntity
     public function toArray(): array
     {
         return array_merge(
-            ['channelName' => $this->channelName,'logLevel' => $this->logLevel, 'logTime' => $this->logTime],
+            [
+                'channelName' => $this->channelName,
+                'logLevel' => LogLevel::getStr($this->logLevel),
+                'logTime' => $this->logTime,
+            ],
             $this->event->toArray()
         );
     }
 
     /**
      * @return string
-     *
-     * @throws FatalException
      */
     public function __toString(): string
     {
-        $str = json_encode($this->toArray());
-        if (false === $str) {
-            throw new FatalException(json_last_error_msg());
-        }
-        return (string) $str;
+        return '' . json_encode($this->toArray());
     }
 }
